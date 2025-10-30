@@ -3,8 +3,6 @@ name: CI (build & push image)
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 env:
   IMAGE_REGISTRY: ghcr.io
@@ -15,7 +13,7 @@ permissions:
   packages: write # needed to push to ghcr
 
 jobs:
-  build-test-push:
+  build-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,6 +35,10 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          push: ${{ github.event_name != 'pull_request' }} # ensures push on main/tags, not pull requests
+          push: true
+          build-args: |
+            GH_OWNER=${{ env.OWNER_LC }}
+            GH_USER=${{ github.actor }}
+            GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           tags: |
               ${{ env.IMAGE_REGISTRY }}/${{ env.OWNER_LC }}/${{ env.IMAGE_NAME }}:latest
