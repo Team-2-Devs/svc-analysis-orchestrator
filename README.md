@@ -5,4 +5,4 @@ Microservice that orchestrates analysis. Consumes `RequestAnalysis` commands fro
 
 ![Design Class Diagram](docs/images/svc-analysis-orchestrator-dcd.jpg)
 
-See the [full system overview](https://github.com/team-2-devs/infra-core)
+See the [full system overview](https://github.com/team-2-devs/infra-core) in the **infra-core** repository.
