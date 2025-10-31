@@ -8,7 +8,6 @@ namespace AnalysisOrchestrator.Workers;
 
 public sealed class RabbitCommandConsumer : BackgroundService
 {
-    private readonly ICommandPublisher _commands;
     private readonly IEventPublisher _events;
     private readonly string _host, _user, _pass;
     private static readonly JsonSerializerOptions JsonOpts = new(JsonSerializerDefaults.Web);
