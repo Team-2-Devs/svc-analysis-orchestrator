@@ -6,13 +6,13 @@ using Messaging.RabbitMQ;
 
 namespace AnalysisOrchestrator.Workers;
 
-public sealed class RabbitCommandConsumer : BackgroundService
+public sealed class RabbitAnalysisWorker : BackgroundService
 {
     private readonly IEventPublisher _events;
     private readonly string _host, _user, _pass;
     private static readonly JsonSerializerOptions JsonOpts = new(JsonSerializerDefaults.Web);
 
-    public RabbitCommandConsumer(IEventPublisher events, string host, string user, string pass)
+    public RabbitAnalysisWorker(IEventPublisher events, string host, string user, string pass)
     {
         _events = events;
         (_host, _user, _pass) = (host, user, pass);

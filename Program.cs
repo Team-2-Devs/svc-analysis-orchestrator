@@ -18,7 +18,7 @@ var rabbitPass = RequireEnv("RABBIT_PASS");
 
 builder.Services.AddSingleton<IEventPublisher>(_ => new RabbitMqPublisher(rabbitHost, rabbitUser, rabbitPass));
 builder.Services.AddHostedService(sp =>
-    new RabbitCommandConsumer(
+    new RabbitAnalysisWorker(
         sp.GetRequiredService<IEventPublisher>(),
         rabbitHost, rabbitUser, rabbitPass));
         
