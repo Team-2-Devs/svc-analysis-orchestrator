@@ -3,6 +3,12 @@ Microservice that orchestrates analysis. Consumes `RequestAnalysis` commands fro
 
 ---
 
+## Codebase Architecture
+
+![Codebase Architecture](docs/images/svc-analysis-orchestrator-codebase-architecture.jpg)
+
+---
+
 ## Design Class Diagram
 
 ![Design Class Diagram](docs/images/svc-analysis-orchestrator-dcd.jpg)
