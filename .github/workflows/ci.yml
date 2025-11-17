@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set lowercase owner
+        run: echo "GH_OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
       
       - name: Set lowercase image name
         run: echo "IMAGE_NAME_LC=${IMAGE_NAME,,}" >> $GITHUB_ENV
@@ -35,6 +38,10 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            GH_OWNER=${{ env.GH_OWNER_LC }}
+            GH_USER=${{ github.actor }}
+            GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
           tags: |
             ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME_LC }}:latest
             ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME_LC }}:${{ github.run_number }}
