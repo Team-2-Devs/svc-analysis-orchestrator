@@ -16,11 +16,16 @@ var rabbitHost = RequireEnv("RABBIT_HOST");
 var rabbitUser = RequireEnv("RABBIT_USER");
 var rabbitPass = RequireEnv("RABBIT_PASS");
 
-builder.Services.AddSingleton<IEventPublisher>(_ => new RabbitMqPublisher(rabbitHost, rabbitUser, rabbitPass));
+builder.Services.AddSingleton<IEventPublisher>(_ => new RabbitMQPublisher(rabbitHost, rabbitUser, rabbitPass));
 builder.Services.AddHostedService(sp =>
-    new RabbitAnalysisWorker(
+    new ImageUploadedWorker(
         sp.GetRequiredService<IEventPublisher>(),
-        rabbitHost, rabbitUser, rabbitPass));
+        new RabbitMQConsumer(rabbitHost, rabbitUser, rabbitPass)));
+
+builder.Services.AddHostedService(sp =>
+    new RecognitionCompletedWorker(
+        sp.GetRequiredService<IEventPublisher>(),
+        new RabbitMQConsumer(rabbitHost, rabbitUser, rabbitPass)));
         
 // Health checks (live/ready)
 builder.Services.AddHealthChecks()
