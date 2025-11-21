@@ -22,7 +22,7 @@ public sealed class RecognitionCompletedWorker : BackgroundService
         {
             // Declare queue
             const string queue = "orchestrator.recognition-completed";
-
+            Console.WriteLine($"[Orchestrator] Subscribing to exchange '{Exchanges.RecognitionCompleted}'");
             // Subscribe to RecognitionCompleted fanout exchange
             await _consumer.SubscribeAsync(queue, Exchanges.RecognitionCompleted, ct);
             
