@@ -22,10 +22,10 @@ public sealed class ImageUploadedWorker : BackgroundService
         {
             // Declare queue
             const string queue = "orchestrator.image-uploaded";
-            Console.WriteLine($"[Orchestrator] Subscribing to exchange '{Exchanges.ImageUploaded}'");
+            
             // Subscribe to ImageUploaded fanout exchange
+            Console.WriteLine($"[Orchestrator] Subscribing to exchange '{Exchanges.ImageUploaded}'");
             await _consumer.SubscribeAsync(queue, Exchanges.ImageUploaded, ct);
-            Console.WriteLine($"[Orchestrator] Subscred to exchange '{Exchanges.ImageUploaded}'");
 
             // Start consume loop
             await _consumer.RunAsync(HandleImageUploadedAsync, ct);
