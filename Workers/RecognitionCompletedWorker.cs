@@ -25,7 +25,7 @@ public sealed class RecognitionCompletedWorker : BackgroundService
             Console.WriteLine($"[Orchestrator] Subscribing to exchange '{Exchanges.RecognitionCompleted}'");
             // Subscribe to RecognitionCompleted fanout exchange
             await _consumer.SubscribeAsync(queue, Exchanges.RecognitionCompleted, ct);
-            
+            Console.WriteLine($"[Orchestrator] Subscred to exchange '{Exchanges.RecognitionCompleted}'");
             // Start consume loop
             await _consumer.RunAsync(HandleRecognitionCompletedAsync, ct);
         }
